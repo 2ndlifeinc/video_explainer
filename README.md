@@ -4,7 +4,7 @@ A system for generating high-quality explainer videos from technical documents. 
 
 ## Example Videos
 
--[How Would AI Data Centers in Space Actually Work?](https://youtu.be/9-MIOwMDVK0)
+- [How Would AI Data Centers in Space Actually Work?](https://youtu.be/9-MIOwMDVK0)
 - [World Models: The Missing Piece for AGI](https://youtu.be/FWGlRy1lPxM?si=mEd0YmE231VOPs4z)
 - [How AI Learned to Reason: DeepSeek and o1 Explained](https://youtu.be/uUTTeGVB6z8)
 - [How LLMs Actually Understand Images](https://youtu.be/PuodF4pq79g?si=4T0CV555qr89DSvY)
