@@ -1,31 +1,45 @@
-# Video Explainer Configuration
+# Video Explainer Configuration — 2ndlifeclass 숏폼 자동화 파이프라인
+# Fork of prajwal-y/video_explainer
+# 목적: 한국형 숏폼(YouTube Shorts, 릴스, TikTok) 자동 생성
 
 # Video settings
 video:
   resolution:
-    width: 1920
-    height: 1080
+    width: 1080
+    height: 1920  # 9:16 세로 (숏폼 기본)
   fps: 30
   format: "mp4"
   codec: "h264"
+
+# Landscape (롱폼) 설정 — 필요 시 프로젝트별 config.json에서 오버라이드
+# video:
+#   resolution:
+#     width: 1920
+#     height: 1080
 
 # LLM settings
 llm:
   # Provider: "claude-code" for production, "mock" for testing
   provider: "claude-code"
-  # Model to use (when provider is not mock)
-  model: "claude-sonnet-4-20250514"
+  # Model: Claude Opus for high-quality Korean script generation
+  model: "claude-opus-4-20250514"
   # Maximum tokens for generation
-  max_tokens: 4096
-  # Temperature for generation
+  max_tokens: 8192
+  # Temperature — 스크립트 생성은 약간 창의적으로
   temperature: 0.7
 
 # TTS settings
 tts:
-  provider: "mock"  # Use "elevenlabs" for real TTS (requires ELEVENLABS_API_KEY)
-  # Voice ID (will be set from environment or here)
-  voice_id: null
-  # Model to use
+  provider: "elevenlabs"
+  # 한국어 보이스 옵션:
+  #   강의용:       fEmH7H4MHMXc7x16TJ8k  (강의 톤, 추천)
+  #   AI재영:       DcReqedIfnJmUu9pYQPP  (재영 클론, 자연스러움 부족)
+  #   AI성준2:      hUK2cksPjrKjEbdQMRHc  (한국어)
+  #   Salang(여):   mYk0rAapHek2oTw18z8x  (Calm, Clear, Warm)
+  #   Sola(여):     KlstlYt9VVf3zgie2Oht  (Professional, 교육용)
+  #   Jennie(여):   z6Kj0hecH20CdetSElRT  (Narrational, Confident)
+  voice_id: "fEmH7H4MHMXc7x16TJ8k"  # 강의용 보이스 (기본)
+  # Model
   model: "eleven_multilingual_v2"
   # Output format
   output_format: "mp3_44100_128"
@@ -45,10 +59,37 @@ paths:
 
 # Review settings
 review:
-  # Enable human review checkpoints
+  # 자동화 단계에서는 false로 전환
   enabled: true
-  # Checkpoints: script, storyboard, assets, final
   checkpoints:
     - script
-    - storyboard
     - final
+
+# 한국형 숏폼 스타일 (커스텀 추가)
+korean_shorts:
+  # 타겟 플랫폼
+  platforms:
+    - youtube_shorts
+    - instagram_reels
+    - tiktok
+  # 영상 길이 (초)
+  target_duration: 45  # 30-60초 권장
+  # 타겟 오디언스
+  audience:
+    primary: "5060세대"  # 유튜브 수익화 VOD
+    secondary: "2040세대"  # AI 강의 VOD
+  # 스타일
+  style:
+    tone_primary: "따뜻하고 쉽게"   # 5060세대용
+    tone_secondary: "실전 중심"     # 2040세대용
+    font_korean: "Pretendard"       # 한글 폰트
+    font_fallback: "Noto Sans KR"
+  # 장면 유형 (한국형 컴포넌트)
+  scene_types:
+    - screenshot    # 웹 캡쳐 + 빨간 밑줄
+    - meme          # 짤/반응
+    - rapid_text    # 빠른 자막 (임팩트)
+    - chart         # 통계/그래프
+    - list_reveal   # 항목 순차 공개
+    - stock_video   # 스톡 영상 + 오버레이
+    - cta           # CTA (프로필 링크)
