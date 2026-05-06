@@ -43,5 +43,10 @@
     "ts-node": "^10.9.2",
     "typescript": "5.7.2",
     "vitest": "^2.1.8"
+  },
+  "overrides": {
+    "vite": "6.4.2",
+    "rollup": "4.59.0",
+    "esbuild": "0.25.0"
   }
 }
